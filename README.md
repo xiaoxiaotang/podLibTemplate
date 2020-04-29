@@ -12,7 +12,7 @@ It's based on official template https://github.com/CocoaPods/pod-template.git ho
 
 在此次podspec制作过程中，遇到了一些问题，现总结一下，以备下次查看：
 
-1）运行 pod lib create LDLAAccount --template-url=https://github.com/iPermanent/podNewTemplate.git （官方用法/official usage） 可以快速创建一个包含Example工程的项目，其中自动生成了Podfile文件
+1）运行 pod lib create LDLAAccount --template-url=https://github.com/xiaoxiaotang/podLibTemplate.git （官方用法/official usage） 可以快速创建一个包含Example工程的项目，其中自动生成了Podfile文件
 
 以及LDLAAccount.podspec、ReadMe.md、License文件
 

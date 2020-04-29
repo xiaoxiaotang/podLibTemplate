@@ -7,34 +7,73 @@ It's based on official template https://github.com/CocoaPods/pod-template.git ho
 基于官方模板https://github.com/CocoaPods/pod-template.git 改造，删除了选择mac os平台和Swift的选项，以及测试框架的选项，只保留了自定义类前缀的功能，会默认创建一个OC语言的iOS的pod库，带demo工程，无测试框架。
 
 ## usage 使用方法
-pod lib create yourPodName --template-url=https://github.com/iPermanent/podNewTemplate.git （官方用法/official usage）
 
-## one more thing 另一个注意事项
-It add the HRCocoaTools pod lib just for test, can be remove yourself, however I think you can find some goodthing in it or usefull for you, you can change this repo yourself to add your own private lib by default.
+制作私有pod库的过程总结
 
-添加了HRCocoaTools做为测试项，可自行移除，也可基于此模板修改为默认集成自己的私有pod库
+在此次podspec制作过程中，遇到了一些问题，现总结一下，以备下次查看：
 
-An opinionated template for creating a Pod with the following features:
+1）运行 pod lib create LDLAAccount --template-url=https://github.com/iPermanent/podNewTemplate.git （官方用法/official usage） 可以快速创建一个包含Example工程的项目，其中自动生成了Podfile文件
 
-- Git as the source control management system
-- Clean folder structure
-- Project generation
-- MIT license
-- Testing as a standard
-- Turnkey access to Travis CI
-- Also supports Carthage
+以及LDLAAccount.podspec、ReadMe.md、License文件
 
-## Getting started
+2）将需要制作成pod的项目文件放入到Pod/Classes下，资源文件放到Pod/Asserts下
 
-There are two reasons for wanting to work on this template, making your own or improving the one for everyone's. In both cases you will want to work with the ruby classes inside the `setup` folder, and the example base template that it works on from inside `template/ios/`. 
+3）修改podspec文件中的 s.sourcefiles和bundle等相关，以及添加其依赖库
 
-## Best practices
+4）进入Example项目根目录下，pod install/update，运行Example工程，建立一个pod使用测试
 
-The command `pod lib create` aims to be ran along with this guide: https://guides.cocoapods.org/making/using-pod-lib-create.html so any changes of flow should be updated there also.
+5）Example运行没有错误后，再远程Gitlab建立一个LDLAAccount仓库，cd 到Example的上级目录（及podspec文件所在目录）
 
-It is open to communal input, but adding new features, or new ideas are probably better off being discussed in an issue first. In general we try to think if an average Xcode user is going to use this feature or not, if it's unlikely is it a _very strongly_ encouraged best practice ( ala testing / CI. ) If it's something useful for saving a few minutes every deploy, or isn't easily documented in the guide it is likely to be denied in order to keep this project as simple as possible.
+在命令行执行：git add .   
 
-## Requirements:
+git commit -m “”
 
-- CocoaPods 1.0.0+
+git remote add origin 远程仓库地址
 
+git push origin master 
+
+6) 由于podspec文件中获取Git版本控制的项目还需要tag号，所以需要给远程仓库打上一个tag，
+
+执行命令：git tag -m “commit msg” “0.1.0”
+
+git push —tags
+
+7) 编辑podspec文件
+
+修改podspec中的homepage 和 sources 和 版本号，summary 和 description
+
+8）回到Example目录下，pod update ，运行项目，没有问题执行下一步
+
+9）cd 到podspec所在目录，执行 pod spec lint LDLAAccount.podspec  --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+
+如果提示pass validate ，进行下一步
+
+10）pod repo list 查看本地的Spec repo文件
+
+11）pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries 将自定义的podspec加入到SepcRepo下，并push到远端
+
+12）cd 到Example所在目录，修改.gitignore文件，加入Pods/，用以忽略依赖的第三方库文件
+
+13）完善ReadMe.md，添加相应说明，再将工程重新push到远程仓库即可
+
+
+
+
+
+Pod库的更新维护：
+
+1）在Pod/Classes中加入所要加的文件
+
+2）修改podspec文件，包括新的版本号
+
+3）在Example的工程目录下，pod update，执行项目，成功后执行下一步
+
+4）完善ReadMe文件，将整个文件push到远程仓库，并打上一个新的tag值
+
+5）cd 到 podspec所在路径，如上执行pod spec lint LDLAAccount.podspec  --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries 进行验证
+
+6）添加这个新的podspec文件，执行命令：pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+
+
+
+到此，完成了pod的更新工作

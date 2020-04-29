@@ -13,49 +13,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSString *configParamsPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"configuration.plist"];
-    if([[NSFileManager defaultManager] fileExistsAtPath:configParamsPath]){
-        NSDictionary *configDic = [NSKeyedUnarchiver unarchiveObjectWithFile:configParamsPath];
-        self.klToken = configDic[@"token"];
-        self.loginId = configDic[@"loginId"];
-        self.localTimeInterval = [configDic[@"localTimeInterval"] longLongValue];
-    }
-    
-    return YES;
-}
-
-- (NSDictionary *)getParamsWithUrlString:(NSString *)urlString {
-    NSMutableDictionary *resultDic = [NSMutableDictionary new];
-    
-    NSString *valueString = [[urlString componentsSeparatedByString:@"/"] lastObject];
-    
-    NSArray *array = [valueString componentsSeparatedByString:@"&"];
-    for(NSString *string in array){
-        NSString *keyString = [string componentsSeparatedByString:@"="][0];
-        NSString *valueString = [string componentsSeparatedByString:@"="].count > 1 ? [string componentsSeparatedByString:@"="][1] : @"";
-        [resultDic setValue:valueString forKey:keyString];
-    }
-    
-    return resultDic.copy;
-}
-
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    NSLog(@"%@",url.absoluteString);
-    NSDictionary *paramDic = [self getParamsWithUrlString:url.absoluteString];
-    
-    self.klToken = paramDic[@"token"];
-    self.loginId = paramDic[@"loginId"];
-    self.localTimeInterval = [paramDic[@"localTimeInterval"] longLongValue];
-    
-    if(paramDic){
-        NSString *configParamsPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"configuration.plist"];
-        if([[NSFileManager defaultManager] fileExistsAtPath:configParamsPath]){
-            [[NSFileManager defaultManager] removeItemAtPath:configParamsPath error:nil];
-        }
-        
-        [NSKeyedArchiver archiveRootObject:paramDic toFile:configParamsPath];
-    }
-    
     return YES;
 }
 

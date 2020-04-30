@@ -50,7 +50,11 @@ git push —tags
 
 10）pod repo list 查看本地的Spec repo文件
 
-11）pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries 将自定义的podspec加入到SepcRepo下，并push到远端
+11）pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+
+pod repo push 230-privatepodspecs HttpRequestLibs.podspec --allow-warnings --sources=git@134.175.230.26:iOS_Compoent/PrivatePodSpecs.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+
+将自定义的podspec加入到SepcRepo下，并push到远端
 
 12）cd 到Example所在目录，修改.gitignore文件，加入Pods/，用以忽略依赖的第三方库文件
 
@@ -72,7 +76,10 @@ Pod库的更新维护：
 
 5）cd 到 podspec所在路径，如上执行pod spec lint LDLAAccount.podspec  --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries 进行验证
 
-6）添加这个新的podspec文件，执行命令：pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+6）添加这个新的podspec文件，执行命令：
+pod repo push saict-scprivatepodspec LDLAAccount.podspec --allow-warnings  --sources=远程仓库podspec git地址.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
+
+pod repo push 230-privatepodspecs HttpRequestLibs.podspec --allow-warnings --sources=git@134.175.230.26:iOS_Compoent/PrivatePodSpecs.git,https://github.com/CocoaPods/Specs.git  --verbose  --use-libraries
 
 
 

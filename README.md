@@ -2,9 +2,8 @@ pod-template
 ============
 
 ## important notice 重要提示
-It's based on official template https://github.com/CocoaPods/pod-template.git however, delete the choice for macOS,swift, test framework options, just keep the custom class prefix function, it will only ask you which prefix you want to use, and will create an iOS pod lib project with demo, no test frameworks.
 
-基于官方模板https://github.com/CocoaPods/pod-template.git 改造，删除了选择mac os平台和Swift的选项，以及测试框架的选项，只保留了自定义类前缀的功能，会默认创建一个OC语言的iOS的pod库，带demo工程，无测试框架。
+基于官方模板https://github.com/CocoaPods/pod-template.git 改造，删除了选择mac os平台和oc的选项，以及测试框架的选项，会默认创建一个swift语言的iOS的pod库，带demo工程，无测试框架。
 
 ## usage 使用方法
 

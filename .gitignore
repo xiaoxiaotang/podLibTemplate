@@ -12,6 +12,7 @@ xcuserdata/
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
 build/
 DerivedData/
+
 *.moved-aside
 *.pbxuser
 !default.pbxuser
@@ -21,6 +22,12 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+
+## Other
+*.moved-aside
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
 
 ## Obj-C/Swift specific
 *.hmap
@@ -45,7 +52,6 @@ playground.xcworkspace
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
 # .swiftpm
-
 .build/
 
 # CocoaPods
@@ -55,16 +61,15 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+*.lock
+*.xcworkspace
 
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
+Carthage/Checkouts
+Carthage/Build
+Cartfile.resolved
 
 # Accio dependency management
 Dependencies/
@@ -80,7 +85,17 @@ Dependencies/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
 fastlane/test_output
+
+# AppCode
+.idea/
+
+# R.swift
+*.generated.swift
+
+# Jazzy docs
+docs/
 
 # Code Injection
 #
